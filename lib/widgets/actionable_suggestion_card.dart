@@ -38,8 +38,9 @@ class _ActionableSuggestionCardState extends State<ActionableSuggestionCard>
   }
 
   void _onApplyPressed() {
-    widget.onApply();
-    _controller.forward();
+    _controller.forward().then((_) {
+      widget.onApply();
+    });
   }
 
   @override

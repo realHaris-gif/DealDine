@@ -24,17 +24,18 @@ class AppTheme {
   static const Color _lightOutline = Color(0xFFE5E7EB);
 
   // Dark Theme Colors
-  static const Color _darkPrimary = Color(0xFF818CF8);       // Light Indigo
-  static const Color _darkOnPrimary = Color(0xFF1E1B4B);     // Very Dark
-  static const Color _darkPrimaryContainer = Color(0xFF3730A3); // Dark Indigo
+  // Dark Theme Colors - Apple Glassmorphism + Emerald & Beige
+  static const Color _darkPrimary = Color(0xFFF5EFEB);         // Soft Warm Beige
+  static const Color _darkOnPrimary = Color(0xFF050F0B);       // Deep Obsidian Green
+  static const Color _darkPrimaryContainer = Color(0xFF0A120E); // Deep Forest Green
   
-  static const Color _darkSecondary = Color(0xFF6EE7B7);     // Light Emerald
-  static const Color _darkTertiary = Color(0xFFFCD34D);      // Light Amber
-  static const Color _darkError = Color(0xFFFCA5A5);         // Light Red
+  static const Color _darkSecondary = Color(0xFF2D5A47);       // Rich Muted Emerald
+  static const Color _darkTertiary = Color(0xFF8C9690);        // Soft Warm Slate
+  static const Color _darkError = Color(0xFFCC6B5B);           // Muted Warm Red
   
-  static const Color _darkSurface = Color(0xFF111827);
-  static const Color _darkBackground = Color(0xFF0F172A);
-  static const Color _darkOutline = Color(0xFF374151);
+  static const Color _darkSurface = Color(0xFF050F0B);         // Deep Forest/Obsidian
+  static const Color _darkBackground = Color(0xFF030906);      // Ultra Dark Green
+  static const Color _darkOutline = Color(0xFF1A2420);
 
   // ============================================
   // Light Theme
@@ -218,37 +219,37 @@ class AppTheme {
         displayLarge: GoogleFonts.poppins(
           fontSize: 32,
           fontWeight: FontWeight.bold,
-          color: const Color(0xFFF3F4F6),
+          color: const Color(0xFFF5EFEB),
         ),
         displayMedium: GoogleFonts.poppins(
           fontSize: 28,
           fontWeight: FontWeight.bold,
-          color: const Color(0xFFF3F4F6),
+          color: const Color(0xFFF5EFEB),
         ),
         titleLarge: GoogleFonts.poppins(
           fontSize: 22,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFFE5E7EB),
+          color: const Color(0xFFF5EFEB),
         ),
         titleMedium: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFFD1D5DB),
+          color: const Color(0xFFE5DFD7),
         ),
         bodyLarge: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w400,
-          color: const Color(0xFFD1D5DB),
+          color: const Color(0xFF8C9690),
         ),
         bodyMedium: GoogleFonts.poppins(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: const Color(0xFF9CA3AF),
+          color: const Color(0xFF8C9690),
         ),
         labelMedium: GoogleFonts.poppins(
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          color: const Color(0xFF6B7280),
+          color: const Color(0xFF6B7270),
         ),
       ),
       

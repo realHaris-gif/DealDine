@@ -3,8 +3,11 @@ import '../models/deal.dart';
 import '../models/deal_item.dart';
 import '../models/menu_item.dart';
 import '../models/restaurant.dart';
+import 'recommendation_scorer.dart';
 
 class SuggestionEngine {
+  final _scorer = RecommendationScorer();
+
   List<ActionableSuggestion> generateActionableSuggestions(
     Deal deal,
     Restaurant restaurant,
@@ -25,7 +28,14 @@ class SuggestionEngine {
 
     suggestions.addAll(_suggestBetterValue(deal, restaurant, priority++));
 
-    suggestions.sort((a, b) => a.priority.compareTo(b.priority));
+    for (var s in suggestions) {
+      final item = restaurant.menu.firstWhere((m) => m.name == s.itemName, orElse: () => null as dynamic);
+      if (item != null) {
+        s.priority = (_scorer.scoreItem(item as MenuItem, deal, deal.numberOfPeople) * 10).toInt().clamp(0, 100);
+      }
+    }
+
+    suggestions.sort((a, b) => b.priority.compareTo(a.priority));
 
     return suggestions.where((s) => !s.applied).toList();
   }

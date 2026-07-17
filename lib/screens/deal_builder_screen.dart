@@ -8,6 +8,7 @@ import '../core/services/deal_customization_engine.dart';
 import '../widgets/actionable_suggestion_card.dart';
 import '../widgets/deal_customization_card.dart';
 import '../widgets/deal_summary.dart';
+import '../widgets/menu_browser_dialog.dart';
 
 class DealBuilderScreen extends ConsumerWidget {
   final String restaurantId;
@@ -134,17 +135,39 @@ class DealBuilderScreen extends ConsumerWidget {
                       loading: () => const Center(child: CircularProgressIndicator()),
                       error: (err, st) => Text('Error: $err'),
                     ),
-                    const SizedBox(height: 32),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Deal confirmed! Total: Rs.${activeDeal.totalCost.toStringAsFixed(0)}')),
-                          );
-                        },
-                        child: const Text('Confirm Deal'),
-                      ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => MenuBrowserDialog(
+                                  restaurant: restaurant,
+                                  deal: activeDeal,
+                                  onAddItem: (updatedDeal) {
+                                    ref.read(selectedDealProvider.notifier).state = updatedDeal;
+                                  },
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.restaurant_menu),
+                            label: const Text('Browse Menu'),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Deal confirmed! Total: Rs.${activeDeal.totalCost.toStringAsFixed(0)}')),
+                              );
+                            },
+                            child: const Text('Confirm Deal'),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 16),
                   ],

@@ -9,7 +9,7 @@ class ActionableSuggestion {
   final String text;
   final String reason;
   final double budgetImpact;
-  final int priority;
+  int priority;
   bool applied;
 
   ActionableSuggestion({
