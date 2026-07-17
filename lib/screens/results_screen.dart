@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../core/providers/app_providers.dart';
-import '../widgets/restaurant_card.dart';
+import '../widgets/restaurant_card_phase3.dart';
 
 class ResultsScreen extends ConsumerWidget {
   const ResultsScreen({Key? key}) : super(key: key);
@@ -45,10 +45,10 @@ class ResultsScreen extends ConsumerWidget {
             itemCount: restaurants.length,
             itemBuilder: (ctx, idx) {
               final r = restaurants[idx];
-              return RestaurantCard(
+              return RestaurantCardV2(
                 restaurant: r,
                 numberOfPeople: prefs.numberOfPeople,
-                onTap: () => context.go('/restaurant-details?id=${r.id}'),
+                onTap: () => context.go('/deal-builder?id=${r.id}'),
               );
             },
           );

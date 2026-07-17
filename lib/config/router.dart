@@ -1,14 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../screens/home_screen.dart';
-import '../screens/restaurant_details_screen.dart';
 import '../screens/results_screen.dart';
+import '../screens/restaurant_details_screen.dart';
+import '../screens/deal_builder_screen.dart';
+import 'package:flutter/material.dart';
 
 abstract class Routes {
   static const String home = '/';
   static const String results = '/results';
   static const String restaurantDetails = '/restaurant-details';
+  static const String dealBuilder = '/deal-builder';
 }
 
 class AppRouter {
@@ -32,6 +33,14 @@ class AppRouter {
           builder: (context, state) {
             final id = state.uri.queryParameters['id'] ?? '';
             return RestaurantDetailsScreen(id: id);
+          },
+        ),
+        GoRoute(
+          path: Routes.dealBuilder,
+          name: 'deal-builder',
+          builder: (context, state) {
+            final id = state.uri.queryParameters['id'] ?? '';
+            return DealBuilderScreen(restaurantId: id);
           },
         ),
       ],
