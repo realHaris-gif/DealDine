@@ -11,43 +11,26 @@ class GlassCard extends StatelessWidget {
     Key? key,
     required this.child,
     this.padding = const EdgeInsets.all(16),
-    this.blurSigma = 18.0,
+    this.blurSigma = 0,
     this.glowColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        if (glowColor != null)
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                gradient: RadialGradient(
-                  colors: [glowColor!.withOpacity(0.08), glowColor!.withOpacity(0)],
-                ),
-              ),
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFFE5E5E5), width: 1),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF0F1A15).withOpacity(0.2),
-                border: Border.all(
-                  color: const Color(0xFFEFE9E1).withOpacity(0.12),
-                  width: 0.5,
-                ),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(padding: padding, child: child),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
+      child: Padding(padding: padding, child: child),
     );
   }
 }

@@ -38,15 +38,14 @@ class _ActionableSuggestionCardState extends State<ActionableSuggestionCard>
   }
 
   void _onApplyPressed() {
-    _controller.forward().then((_) {
-      widget.onApply();
-    });
+    widget.onApply();
+    _controller.forward();
   }
 
   @override
   Widget build(BuildContext context) {
     final impact = widget.suggestion.budgetImpact;
-    final impactColor = impact > 0 ? Colors.red : Colors.green;
+    final impactColor = impact > 0 ? const Color(0xFFD62828) : const Color(0xFF22C55E);
     final impactSign = impact > 0 ? '+' : '';
 
     return ScaleTransition(
@@ -54,61 +53,63 @@ class _ActionableSuggestionCardState extends State<ActionableSuggestionCard>
       child: AnimatedOpacity(
         opacity: widget.isApplied ? 0.5 : 1,
         duration: const Duration(milliseconds: 300),
-        child: Card(
-          elevation: widget.isApplied ? 0 : 2,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.suggestion.text,
-                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Reason: ${widget.suggestion.reason}',
-                            style: Theme.of(context).textTheme.bodySmall,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: impactColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        '$impactSign Rs.${impact.abs().toStringAsFixed(0)}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: impactColor,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: const Color(0xFFE5E5E5), width: 1),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.suggestion.text,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
+                        const SizedBox(height: 8),
+                        Text(
+                          widget.suggestion.reason,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: impactColor.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      '$impactSign Rs.${impact.abs().toStringAsFixed(0)}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: impactColor,
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: widget.isApplied ? null : _onApplyPressed,
-                    child: Text(widget.isApplied ? 'Applied' : 'Apply'),
                   ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: widget.isApplied ? null : _onApplyPressed,
+                  child: Text(widget.isApplied ? 'Applied' : 'Apply'),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
