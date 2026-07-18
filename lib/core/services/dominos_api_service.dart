@@ -14,9 +14,7 @@ class DominosApiService {
 
     final data = jsonDecode(response.body);
 
-    print('Status: ${response.statusCode}');
-    print('Items: ${data.length}');
-    print('First item: ${data.first}');
+   
 
     return data;
   }

@@ -4,13 +4,15 @@ import 'package:flutter/services.dart';
 import '../models/restaurant.dart';
 import 'kfc_repository.dart';
 import 'dominos_repository.dart';
+import 'brim_repository.dart';
 
 class RestaurantRepository {
   Future<List<Restaurant>> getRestaurants() async {
+
     final jsonString = await rootBundle.loadString(
       'assets/restaurants.json',
     );
-
+  
     final jsonData = jsonDecode(jsonString) as List<dynamic>;
 
     final restaurants = jsonData
@@ -20,43 +22,65 @@ class RestaurantRepository {
           ),
         )
         .toList();
-  for (final r in restaurants) {
-  print('Restaurant ID: ${r.id} | Name: ${r.name}');
-}
-  try {
-  final liveKfc = await KfcRepository().getRestaurant();
 
-  final kfcIndex = restaurants.indexWhere(
-    (restaurant) => restaurant.id == '1',
+    
+
+    
+
+    try {
+      final liveKfc = await KfcRepository().getRestaurant();
+
+      final kfcIndex = restaurants.indexWhere(
+        (restaurant) => restaurant.id == '1',
+      );
+
+
+
+      if (kfcIndex != -1) {
+        restaurants[kfcIndex] = liveKfc;
+       
+      }
+    } catch (e) {
+      print("KFC failed: $e");
+    }
+    
+
+    // Replace Domino's with live data
+    try {
+      final liveDominos = await DominosRepository().getRestaurant();
+
+      final dominosIndex = restaurants.indexWhere(
+        (restaurant) => restaurant.id == '4',
+      );
+
+
+
+      if (dominosIndex != -1) {
+        restaurants[dominosIndex] = liveDominos;
+      }
+    } catch (e) {
+      print("Domino's failed: $e");
+    }
+
+    // Replace Brim Burgers with live data
+   try {
+  final brimIndex = restaurants.indexWhere(
+    (restaurant) => restaurant.id == '21',
   );
 
-  print("KFC index: $kfcIndex");
 
-  if (kfcIndex != -1) {
-    restaurants[kfcIndex] = liveKfc;
-    print("KFC replaced: ${restaurants[kfcIndex].menu.length}");
+
+  if (brimIndex != -1) {
+    final liveBrim = await BrimRepository().getRestaurant();
+
+    restaurants[brimIndex] = liveBrim;
   }
 } catch (e) {
-  print("KFC failed: $e");
+  print("Brim failed: $e");
 }
 
 
-try {
-  final liveDominos = await DominosRepository().getRestaurant();
 
-  final dominosIndex = restaurants.indexWhere(
-    (restaurant) => restaurant.id == '4',
-  );
-
-  print("Domino's index: $dominosIndex");
-
-  if (dominosIndex != -1) {
-    restaurants[dominosIndex] = liveDominos;
-    print("Domino's replaced: ${restaurants[dominosIndex].menu.length}");
-  }
-} catch (e) {
-  print("Domino's failed: $e");
-}
 
     return restaurants;
   }

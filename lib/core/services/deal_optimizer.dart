@@ -22,7 +22,7 @@ class DealOptimizer {
     final scoredDeals = allCombinations.map((items) {
       final deal = Deal(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        type: DealType.custom,
+        type: DealType.bestValue,
         name: 'Optimized Deal',
         description: '',
         items: items,

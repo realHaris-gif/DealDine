@@ -1,16 +1,16 @@
 import '../models/menu_item.dart';
 import '../models/restaurant.dart';
-import '../services/kfc_api_service.dart';
+import '../services/brim_api_service.dart';
 
-class KfcRepository {
-  final KfcApiService _api = KfcApiService();
+class BrimRepository {
+  final BrimApiService _api = BrimApiService();
 
   Future<Restaurant> getRestaurant() async {
-    final data = await _api.fetchMenu();
+    final menu = await _api.fetchMenu();
 
-    final menu = data.map<MenuItem>((item) {
+    final items = menu.map<MenuItem>((item) {
       return MenuItem(
-        id: item['id']?.toString() ?? '',
+       id: item['id']?.toString() ?? '',
         name: item['name'] ?? 'Unknown Item',
         description: item['description'] ?? '',
         price: (item['price'] as num?)?.toDouble() ?? 0.0,
@@ -18,15 +18,16 @@ class KfcRepository {
         category: item['category'] ?? 'Mains',
       );
     }).toList();
+
     return Restaurant(
-      id: '1',
-      name: 'KFC',
-      rating: 4.6,
+      id: '21',
+      name: 'Brim Burgers',
+      rating: 4.5,
       distance: 2.5,
       city: 'Lahore',
       cuisine: 'Fast Food',
-      description: 'Live menu from KFC Pakistan',
-      menu: menu,
+      description: 'Premium burgers, wraps, fries and more.',
+      menu: items,
     );
   }
 }

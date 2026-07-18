@@ -518,5 +518,15 @@
       {"name": "Raita", "price": 80, "category": "Sides"},
       {"name": "Lassi", "price": 100, "category": "Drinks"}
     ]
-  }
+  },
+  {
+  "id": "21",
+  "name": "Brim Burgers",
+  "rating": 4.5,
+  "distance": 2.5,
+  "city": "Lahore",
+  "cuisine": "Fast Food",
+  "description": "Premium burgers, wraps, fries and more.",
+   "menu": []
+}
 ]
