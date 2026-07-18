@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class DominosApiService {
   static const String _baseUrl =
-      'http://localhost:3000/api/restaurants/dominos/menu';
+      'http://192.168.18.25:3000/api/restaurants/dominos/menu';
 
   Future<List<dynamic>> fetchMenu() async {
     final response = await http.get(Uri.parse(_baseUrl));

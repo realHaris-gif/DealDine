@@ -32,7 +32,7 @@ class AppRouter {
           name: 'restaurant-details',
           builder: (context, state) {
             final id = state.uri.queryParameters['id'] ?? '';
-            return RestaurantDetailsScreen(id: id);
+            return RestaurantDetailsScreen(restaurantId: id);
           },
         ),
         GoRoute(
